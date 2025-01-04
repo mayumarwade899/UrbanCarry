@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-const util = require('util');
-const debug = util.debuglog('db');
+const config = require('config')
+const debug = require('debug')('development:mongoose');
 
 mongoose
-.connect("mongodb://127.0.0.1:27017/urbancarry")
+.connect(`${config.get("MONGODB_URI")}/urbancarry`)
 .then(() => {
+    serverSelectionTimeoutMS: 30000
     debug("Connected to MongoDB");
 })
 .catch((err) => {
